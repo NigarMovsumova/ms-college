@@ -1,4 +1,4 @@
-package az.pashabank.ls.mscollege.model.entity;
+package az.pashabank.ls.mscollege.repository.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

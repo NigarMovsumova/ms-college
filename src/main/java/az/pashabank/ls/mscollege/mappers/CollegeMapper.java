@@ -1,7 +1,7 @@
 package az.pashabank.ls.mscollege.mappers;
 
 import az.pashabank.ls.mscollege.model.dto.CollegeDto;
-import az.pashabank.ls.mscollege.model.entity.CollegeEntity;
+import az.pashabank.ls.mscollege.repository.entity.CollegeEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

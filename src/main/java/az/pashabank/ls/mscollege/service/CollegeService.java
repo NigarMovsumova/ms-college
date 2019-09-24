@@ -4,7 +4,7 @@ import az.pashabank.ls.mscollege.exception.NotFoundException;
 import az.pashabank.ls.mscollege.mappers.CollegeMapper;
 import az.pashabank.ls.mscollege.model.CollegeRequest;
 import az.pashabank.ls.mscollege.model.dto.CollegeDto;
-import az.pashabank.ls.mscollege.model.entity.CollegeEntity;
+import az.pashabank.ls.mscollege.repository.entity.CollegeEntity;
 import az.pashabank.ls.mscollege.repository.CollegeRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,9 +50,10 @@ public class CollegeService {
         return collegeMapper.mapEntityToDto(collegeEntity);
     }
 
-    public CollegeDto deleteCollege(CollegeRequest collegeRequest) {
+    public CollegeDto deleteCollege(Long id) {
         CollegeEntity collegeEntity = collegeRepository
-                .getCollegeEntityByNameAndCity(collegeRequest.getName(), collegeRequest.getCity());
+                .findById(id)
+                .orElseThrow(()-> new NotFoundException("College with id {}"+id+ " not found"));
 
         collegeRepository.delete(collegeEntity);
         return collegeMapper.mapEntityToDto(collegeEntity);
