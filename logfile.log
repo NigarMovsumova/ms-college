@@ -50,3 +50,7 @@
 2019-09-24 12:01:32.706 DEBUG 57255 --- [http-nio-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Tue Sep 24 12:01:32 AZT 2019, status=404, error=Not Found, message=No message available,  (truncated)...]
 2019-09-24 12:01:32.730 DEBUG 57255 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
 2019-09-24 13:28:33.153  WARN 57255 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=4m10s298ms).
+2019-09-24 18:02:00.156  INFO 57255 --- [Thread-2] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2019-09-24 18:02:00.159  INFO 57255 --- [Thread-2] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2019-09-24 18:02:00.163  INFO 57255 --- [Thread-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2019-09-24 18:02:00.171  INFO 57255 --- [Thread-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
