@@ -6,13 +6,19 @@ import az.pashabank.ls.mscollege.model.CollegeRequest;
 import az.pashabank.ls.mscollege.model.dto.CollegeDto;
 import az.pashabank.ls.mscollege.model.entity.CollegeEntity;
 import az.pashabank.ls.mscollege.repository.CollegeRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class CollegeService {
 
+    private static final Logger logger = LoggerFactory.getLogger(CollegeService.class);
     private final CollegeRepository collegeRepository;
     private final CollegeMapper collegeMapper;
+
 
     public CollegeService(CollegeRepository collegeRepository,
                           CollegeMapper collegeMapper) {
@@ -26,8 +32,7 @@ public class CollegeService {
                 .findById(id)
                 .orElseThrow(() -> new NotFoundException("College with id: " + id + " is not found"));
 
-        CollegeDto collegeDto = collegeMapper.mapEntityToDto(collegeEntity);
-        return collegeDto;
+        return collegeMapper.mapEntityToDto(collegeEntity);
     }
 
     public CollegeDto createCollege(CollegeRequest collegeRequest) {
@@ -40,7 +45,7 @@ public class CollegeService {
         if (collegeRepository.getCollegeEntityByNameAndCity(collegeRequest.getName(), collegeRequest.getCity()) == null) {
             collegeRepository.save(collegeEntity);
         } else {
-            //TODO ADD LOGGING
+            logger.debug("No colleges with name {} are found in {}", collegeRequest.getName(), collegeRequest.getCity());
         }
         return collegeMapper.mapEntityToDto(collegeEntity);
     }
@@ -67,5 +72,11 @@ public class CollegeService {
 
         collegeRepository.save(collegeEntity);
         return collegeMapper.mapEntityToDto(collegeEntity);
+    }
+
+    public List<CollegeDto> getCollegesByLocation(String city) {
+        List<CollegeEntity> collegeEntities = collegeRepository.getCollegeEntitiesByCity(city);
+
+        return collegeMapper.mapEntityListToDtoList(collegeEntities);
     }
 }
