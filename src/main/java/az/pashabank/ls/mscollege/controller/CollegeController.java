@@ -32,7 +32,8 @@ public class CollegeController {
 
     @GetMapping("{id}")
     @ApiOperation("get college by id")
-    public CollegeDto getCollegeById(@PathVariable Long id) {
+    public CollegeDto getCollegeById(@PathVariable(name="id") Long id) {
+        System.out.println("requested");
         logger.debug("getCollegeById {} ", id);
         return collegeService.getCollegeById(id);
     }
@@ -59,7 +60,7 @@ public class CollegeController {
     }
 
     @DeleteMapping("/{id}")
-    @ApiOperation("delete college by college")
+    @ApiOperation("delete college by college id")
     public void deleteCollege(@PathVariable Long id) {
         logger.debug("deleteCollege with id {} ", id);
         collegeService.deleteCollege(id);
