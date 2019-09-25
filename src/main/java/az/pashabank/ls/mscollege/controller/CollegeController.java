@@ -33,36 +33,38 @@ public class CollegeController {
     @GetMapping("{id}")
     @ApiOperation("get college by id")
     public CollegeDto getCollegeById(@PathVariable(name="id") Long id) {
-        System.out.println("requested");
-        logger.debug("getCollegeById {} ", id);
+        logger.debug("Get college of id {} start", id);
         return collegeService.getCollegeById(id);
     }
 
     @PostMapping("/in")
     @ApiOperation("get colleges list by location")
     public List<CollegeDto> getCollegesByLocation(@RequestBody String city) {
-        logger.debug("getCollegesByLocation{} ", city);
+        logger.debug("Get colleges of city {} start", city);
         return collegeService.getCollegesByLocation(city);
     }
 
     @PostMapping
     @ApiOperation("create college")
     public void createCollege(@RequestBody CollegeRequest collegeRequest) {
-        logger.debug("createCollege with name {} in {}", collegeRequest.getName(), collegeRequest.getCity());
+        logger.debug("Create college of name {} in city {} start", collegeRequest.getName(), collegeRequest.getCity());
         collegeService.createCollege(collegeRequest);
+        logger.debug("Create college of name {} in city {} end", collegeRequest.getName(), collegeRequest.getCity());
     }
 
     @PutMapping("{id}")
     @ApiOperation("update college details")
     public void updateCollege(@PathVariable Long id, @RequestBody CollegeRequest collegeRequest) {
-        logger.debug("updateCollege with id {} ", id);
+        logger.debug("updateCollege with id {} start ", id);
         collegeService.updateCollege(id, collegeRequest);
+        logger.debug("updateCollege of id {} end", id);
     }
 
     @DeleteMapping("/{id}")
     @ApiOperation("delete college by college id")
     public void deleteCollege(@PathVariable Long id) {
-        logger.debug("deleteCollege with id {} ", id);
+        logger.debug("deleteCollege of id {} start", id);
         collegeService.deleteCollege(id);
+        logger.debug("deleteCollege of id {} end", id);
     }
 }
