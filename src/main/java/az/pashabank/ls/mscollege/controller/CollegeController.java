@@ -14,19 +14,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/colleges")
-@Api(value="College Controller")
+@Api(value = "College Controller")
 public class CollegeController {
 
     private static final Logger logger = LoggerFactory.getLogger(CollegeController.class);
     private CollegeService collegeService;
-
 
     public CollegeController(CollegeService collegeService) {
         this.collegeService = collegeService;
@@ -39,7 +37,7 @@ public class CollegeController {
         return collegeService.getCollegeById(id);
     }
 
-    @GetMapping("/in")
+    @PostMapping("/in")
     @ApiOperation("get colleges list by location")
     public List<CollegeDto> getCollegesByLocation(@RequestBody String city) {
         logger.debug("getCollegesByLocation{} ", city);
@@ -48,22 +46,22 @@ public class CollegeController {
 
     @PostMapping
     @ApiOperation("create college")
-    public CollegeDto createCollege(@RequestBody CollegeRequest collegeRequest) {
+    public void createCollege(@RequestBody CollegeRequest collegeRequest) {
         logger.debug("createCollege with name {} in {}", collegeRequest.getName(), collegeRequest.getCity());
-        return collegeService.createCollege(collegeRequest);
+        collegeService.createCollege(collegeRequest);
     }
 
     @PutMapping("{id}")
     @ApiOperation("update college details")
-    public CollegeDto updateCollege(@PathVariable Long id, @RequestBody CollegeRequest collegeRequest) {
+    public void updateCollege(@PathVariable Long id, @RequestBody CollegeRequest collegeRequest) {
         logger.debug("updateCollege with id {} ", id);
-        return collegeService.updateCollege(id, collegeRequest);
+        collegeService.updateCollege(id, collegeRequest);
     }
 
     @DeleteMapping("/{id}")
     @ApiOperation("delete college by college")
-    public CollegeDto deleteCollege(@PathVariable Long id) {
+    public void deleteCollege(@PathVariable Long id) {
         logger.debug("deleteCollege with id {} ", id);
-        return collegeService.deleteCollege(id);
+        collegeService.deleteCollege(id);
     }
 }
