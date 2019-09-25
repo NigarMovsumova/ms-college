@@ -86,7 +86,6 @@ public class CollegeServiceImpl implements CollegeService {
 
         collegeRepository.save(collegeEntity);
         logger.info("ActionLog.updateCollege.success: id {}", id);
-
     }
 
     @Override
