@@ -30,16 +30,19 @@ public class CollegeServiceImpl implements CollegeService {
 
     @Override
     public CollegeDto getCollegeById(Long id) {
-
+        logger.info("ActionLog.getCollegeById.start : id {}", id);
         CollegeEntity collegeEntity = collegeRepository
                 .findById(id)
                 .orElseThrow(() -> new NotFoundException("College with id: " + id + " is not found"));
+        logger.info("ActionLog.getCollegeById.success : id {}", id);
 
         return collegeMapper.mapEntityToDto(collegeEntity);
     }
 
     @Override
     public void createCollege(CollegeRequest collegeRequest) {
+        logger.info("ActionLog.createCollege.start");
+
         CollegeEntity collegeEntity = CollegeEntity
                 .builder()
                 .name(collegeRequest.getName())
@@ -48,22 +51,28 @@ public class CollegeServiceImpl implements CollegeService {
 
         if (collegeRepository.getCollegeEntityByNameAndCity(collegeRequest.getName(), collegeRequest.getCity()) == null) {
             collegeRepository.save(collegeEntity);
+            logger.info("ActionLog.createCollege.success");
         } else {
-            logger.debug("No colleges with name {} are found in {}", collegeRequest.getName(), collegeRequest.getCity());
+            logger.debug("No colleges with name {} are found in city {}", collegeRequest.getName(), collegeRequest.getCity());
         }
     }
 
     @Override
     public void deleteCollege(Long id) {
+        logger.info("ActionLog.deleteCollege.start: id {}", id);
+
         CollegeEntity collegeEntity = collegeRepository
                 .findById(id)
                 .orElseThrow(() -> new NotFoundException("College with id {}" + id + " not found"));
 
         collegeRepository.delete(collegeEntity);
+        logger.info("ActionLog.createCollege.success: id {}", id);
     }
 
     @Override
     public void updateCollege(Long id, CollegeRequest collegeRequest) {
+        logger.info("ActionLog.updateCollege.start: id{}", id);
+
         CollegeEntity collegeEntity = collegeRepository
                 .findById(id)
                 .orElseThrow(() -> new NotFoundException("College with id: " + id + " is not found"));
@@ -76,12 +85,15 @@ public class CollegeServiceImpl implements CollegeService {
         }
 
         collegeRepository.save(collegeEntity);
+        logger.info("ActionLog.updateCollege.success: id {}", id);
+
     }
 
     @Override
     public List<CollegeDto> getCollegesByLocation(String city) {
+        logger.info("ActionLog.getCollegesByLocation.start");
         List<CollegeEntity> collegeEntities = collegeRepository.getCollegeEntitiesByCity(city);
-
+        logger.info("ActionLog.getCollegesByLocation.start");
         return collegeMapper.mapEntityListToDtoList(collegeEntities);
     }
 }
