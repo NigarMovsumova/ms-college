@@ -1,0 +1,8 @@
+server:
+  port: 8093
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: Er159951.
+    url: jdbc:mysql://db4free.net:3306/college_database
+    username: nigarmovsum
